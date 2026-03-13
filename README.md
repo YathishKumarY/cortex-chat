@@ -393,7 +393,7 @@ python generate-keys.py
 
 - **Issues**: [GitHub Issues](https://github.com/yourusername/gemini-ai-chat/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yourusername/gemini-ai-chat/discussions)
-- **Email**: your-email@example.com
+- **Email**: yathishkumary2001@gmail.com
 
 ## 📄 License
 
