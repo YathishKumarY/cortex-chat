@@ -1,0 +1,35 @@
+# Virtual environment
+myenv/
+venv/
+.venv/
+
+# Environment and secrets
+.env
+.streamlit/secrets.toml
+
+# Local data storage
+data/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# PostgreSQL data (from docker-compose volume)
+postgres_data/
+pgadmin_data/
+logs/

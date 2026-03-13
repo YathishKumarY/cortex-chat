@@ -1,0 +1,38 @@
+# Streamlit Frontend Dependencies
+streamlit==1.38.0
+streamlit-authenticator==0.4.2
+python-dotenv==1.0.1
+PyPDF2==3.0.1
+joblib==1.4.2
+
+# Google AI Dependencies
+google-generativeai==0.7.2
+
+# FastAPI Backend Dependencies
+fastapi==0.117.1
+uvicorn[standard]==0.37.0
+python-multipart==0.0.20
+
+# Database Dependencies
+sqlalchemy==2.0.43
+psycopg2-binary==2.9.9
+alembic==1.16.5
+
+# Data Validation
+pydantic==2.11.9
+pydantic-settings==2.1.0
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+extra-streamlit-components==0.1.71
+
+# Additional Utilities
+typing-extensions==4.15.0
+requests==2.32.5
+
+# Development and Testing (optional)
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx>=0.28.1  # Compatible with google-genai
