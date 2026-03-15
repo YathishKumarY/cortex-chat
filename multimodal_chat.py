@@ -2508,9 +2508,10 @@ if prompt:
         and not use_search
         and not use_url_context
         and not use_combined
+        and not (st.session_state.get("backend_available", False) and not files_data)
         and st.session_state.multimodal_chat.history
     ):
-        # Use the complete response from chat history if available (only for regular chat)
+        # Use the complete response from chat history if available (only for local Gemini chat)
         try:
             final_content = st.session_state.multimodal_chat.history[-1].parts[0].text
             message_data["content"] = final_content
