@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Union
 from datetime import datetime
 from enum import Enum
@@ -26,7 +26,6 @@ class ChatMessageResponse(ChatMessageBase):
     is_deleted: bool = False
     
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class ChatRequest(BaseModel):
@@ -35,7 +34,8 @@ class ChatRequest(BaseModel):
     conversation_id: str = Field(..., min_length=1, max_length=255)
     message: str = Field(..., min_length=1)
     
-    @validator('message')
+    @field_validator('message')
+    @classmethod
     def validate_message(cls, v):
         if not v.strip():
             raise ValueError('Message cannot be empty')
@@ -67,7 +67,6 @@ class ConversationResponse(ConversationBase):
     message_count: int
     
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class ConversationHistory(BaseModel):
@@ -92,7 +91,6 @@ class UserResponse(UserBase):
     is_active: bool
     
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class ConversationListResponse(BaseModel):
@@ -117,7 +115,7 @@ class ErrorResponse(BaseModel):
 
 class MessageDeleteRequest(BaseModel):
     """Schema for deleting messages."""
-    message_ids: List[int] = Field(..., min_items=1)
+    message_ids: List[int] = Field(..., min_length=1)
 
 class ConversationUpdateRequest(BaseModel):
     """Schema for updating conversation."""

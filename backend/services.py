@@ -46,14 +46,17 @@ class ChatService:
         ).order_by(ChatHistory.timestamp.asc()).all()
     
     def get_recent_messages(self, user_id: str, conversation_id: str, limit: int = 50) -> List[ChatHistory]:
-        """Get recent messages for context."""
-        return self.db.query(ChatHistory).filter(
+        """Get recent messages for context (returned in chronological order)."""
+        # Subquery to get the most recent N messages, then re-sort ascending
+        subquery = self.db.query(ChatHistory).filter(
             and_(
                 ChatHistory.user_id == user_id,
                 ChatHistory.conversation_id == conversation_id,
                 ChatHistory.is_deleted == False
             )
-        ).order_by(desc(ChatHistory.timestamp)).limit(limit).all()
+        ).order_by(desc(ChatHistory.timestamp)).limit(limit).subquery()
+
+        return self.db.query(ChatHistory).select_entity_from(subquery).order_by(ChatHistory.timestamp).all()
     
     def delete_messages(self, message_ids: List[int], user_id: str) -> int:
         """Soft delete messages (mark as deleted)."""
@@ -317,7 +320,9 @@ Please provide a helpful and engaging response:"""
             return response.text if response.text else "I'm sorry, I couldn't generate a response."
             
         except Exception as e:
+            import traceback
             print(f"Error generating AI response: {e}")
+            print(f"Traceback: {traceback.format_exc()}")
             return f"I'm sorry, I encountered an error while processing your message. Please try again."
     
     def _format_conversation_for_ai(self, messages: List[ChatHistory]) -> str:
